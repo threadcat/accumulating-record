@@ -1,0 +1,27 @@
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+plugins {
+    id 'java'
+    id 'distribution'
+}
+
+group 'threadcat'
+version LocalDateTime.now(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+
+sourceCompatibility = 14
+targetCompatibility = 14
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter:5.6.0',
+            'org.mockito:mockito-junit-jupiter:3.3.0',
+            'org.openjdk.jmh:jmh-core:1.23',
+            'org.openjdk.jmh:jmh-generator-annprocess:1.23'
+    )
+}
