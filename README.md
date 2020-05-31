@@ -7,12 +7,12 @@ Examples of cumulative and related functions:
 calculating sum and keeping track of maximum value, calculating average, TWAP, VWAP.
 
 
-#### Notes and constraints
+#### Notes
 
 * Accumulated data automatically recover if underlying byte buffer backed by memory mapped file.
 * Maximum number of columns 64, assuming 64 bit platform.
-* Revision column is optional. Can be used to trigger other actions on commit.
-* Revision can also be used by concurrent reader before and after fetching record cells.
+* Revision column is optional. Can be used to trigger actions on commit.
+* Revision can also be used by concurrent reader as should be invariant after fetching all record fields.
 * Accumulating table is a fixed-size set of accumulating records sharing single byte buffer.
 
 Performance ~3.8 million ops/s for test column set (sum,count,min,max,first,last) on i5-2500K.
@@ -21,7 +21,7 @@ Performance ~3.8 million ops/s for test column set (sum,count,min,max,first,last
 * Data migration tool
 
 
-#### Concept by examples
+#### Concept by example
 
 Define columns:
 
@@ -59,7 +59,7 @@ Accumulate data:
     double average = record.getDouble(columns.sum) / record.getLong(columns.count);
 ```
 
-Example with custom function:
+#### Example with custom function:
 
 ```java
     class Columns {
@@ -92,7 +92,7 @@ Using result after updates:
     double vwap = record.getDouble(columns.sumPriceQuantity) / record.getDouble(columns.sumQuantity);
 ```
 
-Example 'on commit':
+#### Example 'on commit':
 
 ```java
         class Columns {

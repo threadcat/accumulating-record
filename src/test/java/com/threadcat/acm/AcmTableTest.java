@@ -9,6 +9,7 @@ import java.util.function.BiConsumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AcmTableTest {
+    static final double EPSILON = 1e-12;
     long[] samplesL = {3, 5, 7};
     double[] samplesD = {0.1, 0.2, 0.3};
     AcmTable table;
@@ -39,11 +40,29 @@ public class AcmTableTest {
     }
 
     @Test
+    void testInitialisation() {
+        table.setCursor(0);
+        int column_0 = 0;
+        int column_1 = 1;
+        assertEquals(table.getLong(column_0), samplesL[0]);
+        assertEquals(table.getDouble(column_1), samplesD[0], EPSILON);
+        long column_0_value = 11L;
+        double column_1_value = 0.4;
+        int row_1 = 1;
+        table.reset(1);
+        table.setLong(row_1, column_0, column_0_value);
+        table.setDouble(row_1, column_1, column_1_value);
+        table.setCursor(row_1);
+        assertEquals(table.getLong(column_0), column_0_value);
+        assertEquals(table.getDouble(column_1), column_1_value, EPSILON);
+    }
+
+    @Test
     void testReset() {
         BiConsumer<long[], double[]> verify = (long[] valuesL, double[] valuesD) -> {
             for (int i = 0; i < valuesL.length; i++) {
                 assertEquals(valuesL[i], table.getLong(i, colL));
-                assertEquals(valuesD[i], table.getDouble(i, colD), 1e-9);
+                assertEquals(valuesD[i], table.getDouble(i, colD), EPSILON);
             }
         };
 

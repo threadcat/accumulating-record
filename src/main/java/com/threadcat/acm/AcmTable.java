@@ -112,6 +112,24 @@ public class AcmTable extends AcmHandler {
         return buffer.getDouble(dataOffset);
     }
 
+    /**
+     * Initialising table cell not triggering calculations. {@link #commit()} not needed -
+     * different approach AcmTable vs AcmRecord to allow table row initialisation before moving cursor.
+     */
+    public void setLong(int row, int col, long value) {
+        int dataOffset = dataOffset(row, col);
+        buffer.putLong(dataOffset, value);
+    }
+
+    /**
+     * Initialising table cell not triggering calculations. {@link #commit()} not needed -
+     * different approach AcmTable vs AcmRecord to allow table row initialisation before moving cursor.
+     */
+    public void setDouble(int row, int col, double value) {
+        int dataOffset = dataOffset(row, col);
+        buffer.putDouble(dataOffset, value);
+    }
+
     static int size(int rowCount, int rowSize) {
         return DATA + rowCount * (16 + rowSize);
     }

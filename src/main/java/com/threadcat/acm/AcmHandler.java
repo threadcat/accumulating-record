@@ -200,14 +200,16 @@ class AcmHandler implements AcmView {
     }
 
     /**
-     * Sets value not triggering any calculations e.g. initial or cascading values. {@link #commit()} still required.
+     * Sets value not triggering any calculations e.g. initial or cascading values.
+     * {@link #commit()} still required.
      */
     public void setLong(int col, long value) {
         provision(col, value);
     }
 
     /**
-     * Sets value not triggering any calculations e.g. initial or cascading values. {@link #commit()} still required.
+     * Sets value not triggering any calculations e.g. initial or cascading values.
+     * {@link #commit()} still required.
      */
     public void setDouble(int col, double value) {
         provision(col, value);
